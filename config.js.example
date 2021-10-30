@@ -1,3 +1,23 @@
 module.exports = {
-    
+    PREFIXES: {
+        HANGOUT: [
+            '🙋 ',
+            '👋 ',
+        ],
+        HERBIVORE: [
+            '🥬 ',
+            '🍃 ',
+            '🍂 ',
+        ],
+        CARNIVORE: [
+            '🥩 ',
+            '🍖 ',
+        ]
+    },
+    CHANNELS_AUTO_DELETED: [
+        'hangout chat',
+        'herbivore chat',
+        'carnivore chat'
+    ],
+
 };
