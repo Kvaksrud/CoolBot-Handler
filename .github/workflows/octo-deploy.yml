@@ -7,6 +7,9 @@ on:
   push:
     branches:
       - dev
+  release:
+    types:
+      - published
   workflow_dispatch:
 
 env:  
@@ -50,6 +53,17 @@ jobs:
             $deploymentVersionNumber = $versionfromFile + '-build' + ${env:GITHUB_RUN_NUMBER}
             $packageVersionNumber = $deploymentVersionNumber
             Write-Host "Deployment and package version set to $deploymentVersionNumber"
+
+            # Hotfix
+            if($branchName -like "hotfix/*"){
+              $packageVersionNumber = $deploymentVersionNumber + "-hotfix"
+              Write-Host "Setting package version to $packageVersionNumber"
+              Set-ActionVariable PACKAGE_VERSION $packageVersionNumber
+              Write-Host "Setting environment release channel to Hotfix"
+              Set-ActionVariable CHANNEL "Hotfix"
+              Write-Host "Setting environment release environment to Production"
+              Set-ActionVariable DEPLOY_TO "Production"
+            }
 
             # Environment vars
             Write-Host "Setting environment variable DEPLOYMENT_VERSION to: $deploymentVersionNumber"
